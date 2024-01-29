@@ -37,5 +37,3 @@ jobs:
     - name: Install
       run: mvn install
 
-    - name: Site
-      run: mvn site
