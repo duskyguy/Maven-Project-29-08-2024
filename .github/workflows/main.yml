@@ -1,4 +1,4 @@
-name: Maven Build
+name: Maven Full Build
 
 on:
   push:
@@ -19,5 +19,26 @@ jobs:
         distribution: 'adopt'
         java-version: '17'
 
-    - name: Build with Maven
-      run: mvn clean install
+    - name: Validate
+      run: mvn validate
+
+    - name: Compile
+      run: mvn compile
+
+    - name: Test
+      run: mvn test
+
+    - name: Package
+      run: mvn package
+
+    - name: Verify
+      run: mvn verify
+
+    - name: Install
+      run: mvn install
+
+    - name: Deploy
+      run: mvn deploy
+
+    - name: Site
+      run: mvn site
