@@ -1,26 +1,45 @@
-name: Java Maven Build and Test
+
+name: Java with Maven Goals
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Set up JDK
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        distribution: 'adopt'
-        java-version: '11'
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+      
+    - name: Compile with Maven
+      run: mvn compile
+      continue-on-error: true
 
-    - name: Build with Maven
-      run: mvn clean install
+    - name: Display Maven Compilation Output
+      if: ${{ failure() }}
+      run: cat target/maven-compiler-plugin.log
 
-    - name: Run Tests
+    - name: Test with Maven
       run: mvn test
+
+    - name: Package with Maven
+      run: mvn package
+
+    - name: Install with Maven
+      run: mvn install
+
+    - name: Clean with Maven
+      run: mvn clean
+
+    - name: Verify with Maven
+      run: mvn verify
