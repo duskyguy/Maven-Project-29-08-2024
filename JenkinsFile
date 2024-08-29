@@ -20,7 +20,7 @@ stage('findbugs'){
                 bat 'C:/Build/apache-maven-3.9.8/bin/mvn -U clean install'
             }
         }
-stage('findbugs'){
+stage('findbugs 1'){
             steps
             {   
                 bat 'C:/Build/apache-maven-3.9.8/bin/mvn site'
